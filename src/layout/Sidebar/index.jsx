@@ -17,7 +17,8 @@ const Sidebar = ({
     { name: "Account", icon: "fa-book-open", path: "/account/" },
     { name: "Supplier", icon: "fa-truck-arrow-right", path: "/supplier/" },
     { name: "Tools", icon: "fa-screwdriver-wrench", path: "/tools/" },
-    // { name: "Roles", icon: "fa-user-lock", path: "/roles/" },
+    { name: "Purchase", icon: "fa-user-lock", path: "/purchase/" },
+    { name: "Rate", icon: "fa-file-invoice-dollar", path: "/rate/" },
     { name: "Report", icon: "fa-file-arrow-down", path: "/report/" },
   ];
   return (
