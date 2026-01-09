@@ -22,6 +22,7 @@ const Staff = ({ data = "admin" }) => {
     handleSubmit,
     formState: { errors },
     reset,
+    register,
   } = useForm({
     defaultValues: {
       role: "",
@@ -115,96 +116,116 @@ const Staff = ({ data = "admin" }) => {
           setOpenDeleteModal(false);
         }}
       />
-      <TextInput />
 
-      <TextFieldBox />
+      <div className="my-5 p-4 border bg-white rounded-md">
+        <form action="" onSubmit={handleSubmit(onSubmit)}>
+          <TextInput
+            name="username"
+            label="Username"
+            register={register}
+            rules={{ required: "Username is required" }}
+            error={errors.username}
+            placeholder="Enter username"
+          />
 
-      <form action="" onSubmit={handleSubmit(onSubmit)}>
-        <div className="max-w-sm">
-          <SingleUpload
-            label="Profile Image"
-            maxSizeMB={3}
+          <TextFieldBox
+            name="description"
+            label="Description"
+            register={register}
+            rules={{ required: "Description is required" }}
+            error={errors.description}
+            placeholder="Enter description..."
+          />
+          <div className="max-w-sm">
+            <SingleUpload
+              label="Profile Image"
+              maxSizeMB={3}
+              onChange={(files) => console.log(files)}
+            />
+          </div>
+
+          <MultiFileUpload
+            label="Product Images"
             onChange={(files) => console.log(files)}
           />
-        </div>
 
-        <MultiFileUpload
-          label="Product Images"
-          onChange={(files) => console.log(files)}
-        />
+          <div className="flex gap-3">
+            <SingleSelect
+              name="role"
+              label="Role"
+              control={control}
+              options={[
+                { label: "Admin", value: "admin" },
+                { label: "User", value: "user" },
+              ]}
+              rules={{
+                required: "Role is required",
+              }}
+            />
 
-        <div className="flex gap-3">
-          <SingleSelect
-            name="role"
-            label="Role"
+            <MultiSelect
+              name="skills"
+              label="Skills"
+              control={control}
+              options={skillOptions}
+              rules={{
+                validate: (v) => v.length > 0 || "Select at least one skill",
+              }}
+            />
+          </div>
+
+          {/* Date Rage Selector with past date and with rules */}
+          <DateRangeSelector
+            name="joinedDate"
+            label="Joined Date"
             control={control}
-            options={[
-              { label: "Admin", value: "admin" },
-              { label: "User", value: "user" },
-            ]}
+            disabledPast={false}
             rules={{
-              required: "Role is required",
+              validate: (value) => {
+                if (!value?.startDate || !value?.endDate) {
+                  return "Date range is required";
+                }
+
+                const start = new Date(value.startDate);
+                const end = new Date(value.endDate);
+
+                start.setHours(0, 0, 0, 0);
+                end.setHours(0, 0, 0, 0);
+
+                if (start < today) {
+                  return "Start date cannot be in the past";
+                }
+
+                if (end < start) {
+                  return "End date must be after start date";
+                }
+
+                return true;
+              },
             }}
           />
 
-          <MultiSelect
-            name="skills"
-            label="Skills"
+          {/* Date Rage Selector without past date */}
+          <DateRangeSelector
+            name="bookingDate"
+            label="Booking Date"
             control={control}
-            options={skillOptions}
-            rules={{
-              validate: (v) => v.length > 0 || "Select at least one skill",
-            }}
           />
-        </div>
 
-        {/* Date Rage Selector with past date and with rules */}
-        <DateRangeSelector
-          name="joinedDate"
-          label="Joined Date"
-          control={control}
-          disabledPast={false}
-          rules={{
-            validate: (value) => {
-              if (!value?.startDate || !value?.endDate) {
-                return "Date range is required";
-              }
+          <DateSelector
+            name="reportDate"
+            label="Report Date"
+            control={control}
+          />
 
-              const start = new Date(value.startDate);
-              const end = new Date(value.endDate);
-
-              start.setHours(0, 0, 0, 0);
-              end.setHours(0, 0, 0, 0);
-
-              if (start < today) {
-                return "Start date cannot be in the past";
-              }
-
-              if (end < start) {
-                return "End date must be after start date";
-              }
-
-              return true;
-            },
-          }}
-        />
-
-        {/* Date Rage Selector without past date */}
-        <DateRangeSelector
-          name="bookingDate"
-          label="Booking Date"
-          control={control}
-        />
-
-        <DateSelector name="reportDate" label="Report Date" control={control} />
-
-        <button
-          type="submit"
-          className="px-4 py-2 bg-blue-600 text-white rounded-lg"
-        >
-          Submit
-        </button>
-      </form>
+          <button
+            type="submit"
+            className="px-4 py-2 bg-blue-600 text-white rounded-lg"
+          >
+            Submit
+          </button>
+        </form>
+      </div>
     </div>
   );
 };

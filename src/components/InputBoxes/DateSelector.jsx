@@ -41,11 +41,11 @@ export default function DateSelector({
               {...field}
               min={minDate.toISOString().split("T")[0]}
               value={field.value ?? ""}
-              className={`border rounded-lg px-3 py-2 text-sm focus:outline-none
+              className={`border rounded-lg px-3 py-2 text-sm focus:outline-none hover:ring-2
                 ${
                   error
                     ? "border-red-500"
-                    : "border-gray-300 focus:border-blue-500"
+                    : "border-gray-300 focus:border-blue-500 hover:ring-blue-500"
                 }`}
             />
 

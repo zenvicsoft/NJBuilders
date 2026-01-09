@@ -57,8 +57,8 @@ export default function MultiSelect({
 
             <div
               onClick={() => setOpen((o) => !o)}
-              className={`min-h-[42px] border rounded-lg px-2 py-1 flex flex-wrap justify-between gap-2 items-center cursor-pointer bg-white
-                ${error ? "border-red-500" : "hover:border-gray-400"}`}
+              className={`min-h-[42px] border rounded-lg px-2 py-1 flex flex-wrap justify-between gap-2 items-center cursor-pointer bg-white focus:ring-2 hover:ring-2
+                ${error ? "border-red-500" : "focus:ring-bg-primary hover:ring-blue-500"}`}
             >
               {values.length === 0 && (
                 <span className="text-gray-400 text-sm">{placeholder}</span>

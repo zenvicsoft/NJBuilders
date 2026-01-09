@@ -47,9 +47,9 @@ export default function SingleSelect({
                 ${
                   error
                     ? "border-red-500 focus:ring-red-300"
-                    : "focus:ring-bg-primary"
+                    : "focus:ring-bg-primary hover:ring-blue-500"
                 }
-                focus:outline-none focus:ring-2`}
+                focus:outline-none focus:ring-2 hover:ring-2`}
             >
               <span className={selected ? "text-gray-900" : "text-gray-400"}>
                 {selected?.label || placeholder}
