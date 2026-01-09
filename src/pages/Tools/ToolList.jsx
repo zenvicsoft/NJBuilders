@@ -24,7 +24,7 @@ const ToolList = () => {
         enableEdit
         enableDelete
        
-        baseURL="/user"
+        baseURL="/tools"
         onDelete={(row) => console.log(row)}
       />
     </div>

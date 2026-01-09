@@ -10,6 +10,7 @@ import Dashboard from "@/pages/Dashboard";
 import LabourForm from "@/pages/Labour/LabourForm";
 import LabourList from "@/pages/Labour/LabourList";
 import PurchaseList from "@/pages/Purchase/PurchaseList";
+import RateAdd from "@/pages/Rate/RateAdd";
 import RateList from "@/pages/Rate/RateList";
 import SiteForm from "@/pages/Site/SiteForm";
 import SiteList from "@/pages/Site/SiteList";
@@ -19,6 +20,7 @@ import StaffList from "@/pages/Staff/StaffList";
 import SupplierForm from "@/pages/Supplier/SupplierForm";
 import SupplierList from "@/pages/Supplier/SupplierList";
 import ToolList from "@/pages/Tools/ToolList";
+import ToolsAdd from "@/pages/Tools/ToolsAdd";
 import { createBrowserRouter } from "react-router-dom";
 
 const MainRouter = createBrowserRouter([
@@ -35,6 +37,10 @@ const MainRouter = createBrowserRouter([
       {
         path: "/staff/",
         children: [
+          {
+            path: "",
+            element: <StaffList />,
+          },
           {
             path: "add/",
             element: <StaffForm />,
@@ -82,8 +88,8 @@ const MainRouter = createBrowserRouter([
       {
         path: "/tools/",
         children: [
-          { path: "", element: <DailyReportsList /> },
-          { path: "add/", element: <DailyReportForm /> },
+          { path: "", element: <ToolList /> },
+          { path: "add/", element: <ToolsAdd /> },
           { path: "add/", element: <DailyReportForm /> },
           { path: "add/", element: <DailyReportForm /> },
         ],
@@ -109,8 +115,8 @@ const MainRouter = createBrowserRouter([
       {
         path: "/rate/",
         children: [
-          { path: "", element: <DailyReportsList /> },
-          { path: "add/", element: <DailyReportForm /> },
+          { path: "", element: <RateList /> },
+          { path: "add/", element: <RateAdd /> },
           { path: "add/", element: <DailyReportForm /> },
           { path: "add/", element: <DailyReportForm /> },
         ],
