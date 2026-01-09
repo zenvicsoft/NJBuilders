@@ -19,7 +19,11 @@ const Sidebar = ({
     { name: "Tools", icon: "fa-screwdriver-wrench", path: "/tools/" },
     { name: "Purchase", icon: "fa-user-lock", path: "/purchase/" },
     { name: "Rate", icon: "fa-file-invoice-dollar", path: "/rate/" },
-    { name: "Report", icon: "fa-file-arrow-down", path: "/report/" },
+    {
+      name: "Daily Report",
+      icon: "fa-file-arrow-down",
+      path: "/daily-report/",
+    },
   ];
   return (
     <aside
