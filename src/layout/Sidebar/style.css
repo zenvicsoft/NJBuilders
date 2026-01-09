@@ -1,0 +1,30 @@
+.sidebar-link {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    color: black;
+}
+
+.sidebar-link i {
+    display: flex;
+    justify-content: center;
+}
+
+.sidebar-link:hover {
+    /* background-color: var(--bg-secondary);  */
+    color: var(--text-primary);
+    text-decoration: none;
+}
+
+.sidebar-link.active {
+    background-color: var(--bg-secondary);
+    color: var(--text-primary);
+    border-left: 2px solid var(--bg-primary);
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+.sidebar nav {
+    -webkit-overflow-scrolling: touch;
+}

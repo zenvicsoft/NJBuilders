@@ -1,0 +1,37 @@
+@import "./scrollbar.css";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Global color variables (HEX)  */
+@layer base {
+  :root {
+    --bg-primary: #3550DC;
+    --bg-secondary: #eaedfb;
+
+    --text-primary: #3550DC;
+    --text-secondary: #dadadb;
+
+    --brand-primary: #18b;
+    /* shorthand HEX */
+  }
+}
+
+/* Dark mode */
+@layer base {
+  .dark {
+    --bg-primary: #0f172a;
+    --bg-secondary: #1e293b;
+
+    --text-primary: #f9fafb;
+    --text-secondary: #cbd5f5;
+
+    --brand-primary: #38bdf8;
+  }
+}
+
+/* Default Font */
+* {
+  font-family: "Roboto", sans-serif;
+  font-size: 14px;
+}

@@ -1,0 +1,37 @@
+import MainLayout from "@/layout/MainLayout";
+import AccountList from "@/pages/Account/AccountList";
+import Authentication from "@/pages/Authentication";
+import Dashboard from "@/pages/Dashboard";
+import LabourList from "@/pages/Labour/LabourList";
+import ReportsList from "@/pages/Reports/ReportsList";
+import SiteList from "@/pages/Site/SiteList";
+import Staff from "@/pages/Staff";
+import StaffList from "@/pages/Staff/StaffList";
+import SupplierList from "@/pages/Supplier/SupplierList";
+import ToolList from "@/pages/Tools/ToolList";
+import { createBrowserRouter } from "react-router-dom";
+
+const MainRouter = createBrowserRouter([
+  {
+    index: true,
+    element: <Authentication />,
+  },
+  {
+    path: "/",
+    element: <MainLayout />,
+    children: [
+      { path: "/dashboard/", element: <Dashboard /> },
+      { path: "/sample/", element: <Staff /> },
+      { path: "/staff/", element: <StaffList /> },
+      { path: "/labour/", element: <LabourList /> },
+      { path: "/site/", element: <SiteList /> },
+      { path: "/account/", element: <AccountList /> },
+      { path: "/supplier/", element: <SupplierList /> },
+      { path: "/tools/", element: <ToolList /> },
+      // { path: "/roles/", element: <RolesList /> },
+      { path: "/report/", element: <ReportsList /> },
+    ],
+  },
+]);
+
+export default MainRouter;
