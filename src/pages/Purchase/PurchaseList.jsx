@@ -1,5 +1,4 @@
 import CommonTable from "@/components/CommonTable";
-import Table from "@/components/Table";
 import React from "react";
 
 const PurchaseList = () => {
@@ -26,11 +25,11 @@ const PurchaseList = () => {
         enableEdit
         enableDelete
        
-        baseURL="/user"
+        baseURL="/purchase"
         onDelete={(row) => console.log(row)}
       />
     </div>
-  );
+  );  
 };
 
 export default PurchaseList;

@@ -9,6 +9,7 @@ import DailyReportView from "@/pages/DailyReports/DailyReportView";
 import Dashboard from "@/pages/Dashboard";
 import LabourForm from "@/pages/Labour/LabourForm";
 import LabourList from "@/pages/Labour/LabourList";
+import PurchaseForm from "@/pages/Purchase/PurchaseForm";
 import PurchaseList from "@/pages/Purchase/PurchaseList";
 import RateList from "@/pages/Rate/RateList";
 import SiteForm from "@/pages/Site/SiteForm";
@@ -91,8 +92,8 @@ const MainRouter = createBrowserRouter([
       {
         path: "/purchase/",
         children: [
-          { path: "", element: <DailyReportsList /> },
-          { path: "add/", element: <DailyReportForm /> },
+          { path: "", element: <PurchaseList /> },
+          { path: "add/", element: <PurchaseForm /> },
           { path: "add/", element: <DailyReportForm /> },
           { path: "add/", element: <DailyReportForm /> },
         ],
