@@ -185,6 +185,7 @@ const Staff = ({ data = "admin" }) => {
                 if (!value?.startDate || !value?.endDate) {
                   return "Date range is required";
                 }
+                const today = new Date();
 
                 const start = new Date(value.startDate);
                 const end = new Date(value.endDate);
