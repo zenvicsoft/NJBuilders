@@ -64,9 +64,27 @@ const MainRouter = createBrowserRouter([
         { path: "", element: <AccountList /> },
         { path: "add/", element: <AccountForm /> },
       ] },
-      { path: "/supplier/", element: <SupplierList /> },
-      { path: "/tools/", element: <ToolList /> },
-      { path: "/purchase/", element: <PurchaseList /> },
+      { path: "/supplier/", 
+        children: [
+          { path: "", element: <DailyReportsList /> },
+          { path: "add/", element: <DailyReportForm /> },
+          { path: "add/", element: <DailyReportForm /> },
+          { path: "add/", element: <DailyReportForm /> },
+        ], },
+      { path: "/tools/",
+        children: [
+          { path: "", element: <DailyReportsList /> },
+          { path: "add/", element: <DailyReportForm /> },
+          { path: "add/", element: <DailyReportForm /> },
+          { path: "add/", element: <DailyReportForm /> },
+        ], },
+      { path: "/purchase/", 
+        children: [
+          { path: "", element: <DailyReportsList /> },
+          { path: "add/", element: <DailyReportForm /> },
+          { path: "add/", element: <DailyReportForm /> },
+          { path: "add/", element: <DailyReportForm /> },
+        ], },
       {
         path: "/report/",
         children: [
@@ -76,7 +94,13 @@ const MainRouter = createBrowserRouter([
           { path: "add/", element: <DailyReportForm /> },
         ],
       },
-      { path: "/rate/", element: <RateList /> },
+      { path: "/rate/", 
+        children: [
+          { path: "", element: <DailyReportsList /> },
+          { path: "add/", element: <DailyReportForm /> },
+          { path: "add/", element: <DailyReportForm /> },
+          { path: "add/", element: <DailyReportForm /> },
+        ],},
     ],
   },
 ]);
