@@ -24,134 +24,77 @@ const LabourForm = () => {
   };
 
   return (
-    /* PAGE WRAPPER */
-    <div
-      style={{
-        minHeight: "100vh",
-        backgroundColor: "#eef1fb",
-        padding: "32px 0",
-      }}
-    >
-      {/* CARD (MATCHES USERDETAILS SIZE) */}
-      <div
-        style={{
-          width: "95%",
-          margin: "0 auto",
-          backgroundColor: "#ffffff",
-          borderRadius: "16px",
-          padding: "24px",
-          boxShadow: "0 8px 24px rgba(0,0,0,0.08)",
-        }}
-      >
-        {/* HEADER */}
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            marginBottom: "28px",
-          }}
-        >
-          <div>
-            <h2 style={{ fontSize: "22px", fontWeight: 700 }}>
-              Add Labour
-            </h2>
-            <p style={{ fontSize: "14px", color: "#6b7280" }}>
-              Enter labour details below
-            </p>
-          </div>
+    <div className="p-4 bg-white">
+      {/* HEADER */}
+      <div className="mb-7">
+        <h2 className="text-[22px] font-bold">Add Labour</h2>
+        <p className="text-sm text-gray-500">
+          Enter labour details below
+        </p>
+      </div>
+
+      <form onSubmit={handleSubmit(onSubmit)}>
+        {/* FORM GRID */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          
+          {/* Name */}
+          <TextInput
+            name="name"
+            label="Name"
+            register={register}
+            rules={{ required: "Name is required" }}
+            error={errors.name}
+            placeholder="Enter site name"
+          />
+
+          {/* Phone Number */}
+          <TextInput
+            name="phone"
+            label="Phone Number"
+            type="tel"
+            register={register}
+            rules={{
+              required: "Phone number is required",
+              pattern: {
+                value: /^[6-9]\d{9}$/,
+                message: "Enter a valid 10-digit phone number",
+              },
+            }}
+            error={errors.phone}
+            placeholder="Enter phone number"
+          />
+
+          {/* Status */}
+          <SingleSelect
+            name="status"
+            label="Status"
+            control={control}
+            options={[
+              { label: "Active", value: "active" },
+              { label: "Inactive", value: "inactive" },
+            ]}
+            rules={{ required: "Status is required" }}
+          />
         </div>
 
-        {/* FORM */}
-        <form onSubmit={handleSubmit(onSubmit)}>
-          {/* GRID LAYOUT (LIKE MUI GRID) */}
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
-              gap: "24px",
-            }}
+        {/* ACTION BUTTONS */}
+        <div className="flex justify-end gap-4 mt-9">
+          <button
+            type="button"
+            onClick={() => reset()}
+            className="px-6 py-2.5 rounded-lg border border-gray-300 bg-white hover:bg-gray-50 transition"
           >
-            {/* Name */}
-            <TextInput
-              name="name"
-              label="Name"
-              register={register}
-              rules={{ required: "Name is required" }}
-              error={errors.name}
-              placeholder="Enter staff name"
-            />
+            Reset
+          </button>
 
-            {/* Phone */}
-            <TextInput
-              name="phone"
-              label="Phone Number"
-              register={register}
-              rules={{
-                required: "Phone number is required",
-                pattern: {
-                  value: /^[0-9]{10}$/,
-                  message: "Enter valid 10 digit number",
-                },
-              }}
-              error={errors.phone}
-              placeholder="Enter phone number"
-            />
-
-            {/* Status */}
-            <SingleSelect
-              name="status"
-              label="Status"
-              control={control}
-              options={[
-                { label: "Active", value: "active" },
-                { label: "Inactive", value: "inactive" },
-              ]}
-              rules={{ required: "Status is required" }}
-            />
-          </div>
-
-          {/* ACTION BUTTONS */}
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "flex-end",
-              gap: "16px",
-              marginTop: "36px",
-            }}
+          <button
+            type="submit"
+            className="px-7 py-2.5 rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition"
           >
-            <button
-              type="button"
-              onClick={() => reset()}
-              style={{
-                padding: "10px 22px",
-                borderRadius: "8px",
-                border: "1px solid #d1d5db",
-                backgroundColor: "#ffffff",
-                fontSize: "14px",
-                cursor: "pointer",
-              }}
-            >
-              Reset
-            </button>
-
-            <button
-              type="submit"
-              style={{
-                padding: "10px 26px",
-                borderRadius: "8px",
-                backgroundColor: "#2563eb",
-                color: "#ffffff",
-                fontSize: "14px",
-                border: "none",
-                cursor: "pointer",
-              }}
-            >
-              Save
-            </button>
-          </div>
-        </form>
-      </div>
+            Save
+          </button>
+        </div>
+      </form>
     </div>
   );
 };
