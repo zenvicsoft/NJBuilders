@@ -16,6 +16,7 @@ import SiteList from "@/pages/Site/SiteList";
 import Staff from "@/pages/Staff";
 import StaffForm from "@/pages/Staff/Staffform";
 import StaffList from "@/pages/Staff/StaffList";
+import SupplierForm from "@/pages/Supplier/SupplierForm";
 import SupplierList from "@/pages/Supplier/SupplierList";
 import ToolList from "@/pages/Tools/ToolList";
 import { createBrowserRouter } from "react-router-dom";
@@ -72,8 +73,8 @@ const MainRouter = createBrowserRouter([
       {
         path: "/supplier/",
         children: [
-          { path: "", element: <DailyReportsList /> },
-          { path: "add/", element: <DailyReportForm /> },
+          { path: "", element: <SupplierList /> },
+          { path: "add/", element: <SupplierForm /> },
           { path: "add/", element: <DailyReportForm /> },
           { path: "add/", element: <DailyReportForm /> },
         ],

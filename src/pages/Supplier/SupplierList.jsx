@@ -25,7 +25,7 @@ const SupplierList = () => {
         enableEdit
         enableDelete
         
-        baseURL="/user"
+        baseURL="/Supplier"
         onDelete={(row) => console.log(row)}
       />
     </div>
