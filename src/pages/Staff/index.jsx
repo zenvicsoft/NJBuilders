@@ -10,38 +10,31 @@ import MultiSelect from "@/components/InputBoxes/MultiSelect";
 import { Controller, useForm } from "react-hook-form";
 import DateRangeSelector from "@/components/InputBoxes/DateRangeSelector";
 import TextFieldBox from "@/components/InputBoxes/TextFieldBox";
-import DateSelector from "@/components/InputBoxes/DateSelector";
 
-const Staff = ({ data = "admin" }) => {
+const Staff = ({data="admin"}) => {
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
   const [openSaveModal, setOpenSaveModal] = useState(false);
   const [openFormModal, setOpenFormModal] = useState(false);
+
 
   const {
     control,
     handleSubmit,
     formState: { errors },
     reset,
-    register,
   } = useForm({
     defaultValues: {
-      role: "",
+      role: data,
       skills: [],
-      bookingDate: {
+      dateRange: {
         startDate: "",
         endDate: "",
       },
-      joinedDate: {
-        startDate: "",
-        endDate: "",
-      },
-      reportDate: "",
     },
   });
 
   const onSubmit = (data) => {
     console.log(data);
-    reset();
   };
 
   const options = [
@@ -116,117 +109,140 @@ const Staff = ({ data = "admin" }) => {
           setOpenDeleteModal(false);
         }}
       />
+      <TextInput />
 
-      <div className="my-5 p-4 border bg-white rounded-md">
-        <form action="" onSubmit={handleSubmit(onSubmit)}>
-          <TextInput
-            name="username"
-            label="Username"
-            register={register}
-            rules={{ required: "Username is required" }}
-            error={errors.username}
-            placeholder="Enter username"
-          />
+      <TextFieldBox />
 
-          <TextFieldBox
-            name="description"
-            label="Description"
-            register={register}
-            rules={{ required: "Description is required" }}
-            error={errors.description}
-            placeholder="Enter description..."
-          />
-          <div className="max-w-sm">
-            <SingleUpload
-              label="Profile Image"
-              maxSizeMB={3}
-              onChange={(files) => console.log(files)}
-            />
-          </div>
-
-          <MultiFileUpload
-            label="Product Images"
+      <form action="" onSubmit={handleSubmit(onSubmit)}>
+        <div className="max-w-sm">
+          <SingleUpload
+            label="Profile Image"
+            maxSizeMB={3}
             onChange={(files) => console.log(files)}
           />
+        </div>
 
-          <div className="flex gap-3">
-            <SingleSelect
-              name="role"
-              label="Role"
-              control={control}
-              options={[
-                { label: "Admin", value: "admin" },
-                { label: "User", value: "user" },
-              ]}
-              rules={{
-                required: "Role is required",
-              }}
-            />
+        <MultiFileUpload
+          label="Product Images"
+          onChange={(files) => console.log(files)}
+        />
 
-            <MultiSelect
-              name="skills"
-              label="Skills"
-              control={control}
-              options={skillOptions}
-              rules={{
-                validate: (v) => v.length > 0 || "Select at least one skill",
-              }}
-            />
-          </div>
-
-          {/* Date Rage Selector with past date and with rules */}
-          <DateRangeSelector
-            name="joinedDate"
-            label="Joined Date"
+        <div className="flex gap-3">
+          <Controller
+            name="role"
             control={control}
-            disabledPast={false}
+            rules={{ required: "Role is required" }}
+            render={({ field }) => (
+              <SingleSelect
+                label="Role"
+                options={options}
+                value={field.value}
+                onChange={field.onChange}
+                onBlur={field.onBlur}
+                error={errors.role?.message}
+              />
+            )}
+          />
+
+          <Controller
+            name="skills"
+            control={control}
             rules={{
-              validate: (value) => {
-                if (!value?.startDate || !value?.endDate) {
-                  return "Date range is required";
-                }
-                const today = new Date();
-
-                const start = new Date(value.startDate);
-                const end = new Date(value.endDate);
-
-                start.setHours(0, 0, 0, 0);
-                end.setHours(0, 0, 0, 0);
-
-                if (start < today) {
-                  return "Start date cannot be in the past";
-                }
-
-                if (end < start) {
-                  return "End date must be after start date";
-                }
-
-                return true;
-              },
+              validate: (v) => v.length > 0 || "Select at least one skill",
             }}
+            render={({ field }) => (
+              <MultiSelect
+                label="Skills"
+                options={skillOptions}
+                values={field.value}
+                onChange={field.onChange}
+                onBlur={field.onBlur}
+                error={errors.skills?.message}
+              />
+            )}
           />
+        </div>
+        {/* Date Rage Selector with past date */}
+        <Controller
+          name="dateRange"
+          control={control}
+          rules={{
+            validate: (v) => {
+              if (!v.startDate || !v.endDate) {
+                return "Date range is required";
+              }
 
-          {/* Date Rage Selector without past date */}
-          <DateRangeSelector
-            name="bookingDate"
-            label="Booking Date"
-            control={control}
-          />
+              const today = new Date();
+              today.setHours(0, 0, 0, 0);
 
-          <DateSelector
-            name="reportDate"
-            label="Report Date"
-            control={control}
-          />
+              const start = new Date(v.startDate);
+              const end = new Date(v.endDate);
 
-          <button
-            type="submit"
-            className="px-4 py-2 bg-blue-600 text-white rounded-lg"
-          >
-            Submit
-          </button>
-        </form>
-      </div>
+              start.setHours(0, 0, 0, 0);
+              end.setHours(0, 0, 0, 0);
+
+              if (start < today) {
+                return "Start date cannot be in the past";
+              }
+
+              return true;
+            },
+          }}
+          render={({ field }) => (
+            <DateRangeSelector
+              label="Date Range With Past dates"
+              value={field.value}
+              onChange={field.onChange}
+              onBlur={field.onBlur}
+              error={errors.dateRange?.message}
+              disabledPast={false}
+            />
+          )}
+        />
+        {/* Date Rage Selector without past date */}
+        <Controller
+          name="dateRange"
+          control={control}
+          rules={{
+            validate: (v) => {
+              if (!v.startDate || !v.endDate) {
+                return "Date range is required";
+              }
+
+              const today = new Date();
+              today.setHours(0, 0, 0, 0);
+
+              const start = new Date(v.startDate);
+              const end = new Date(v.endDate);
+
+              start.setHours(0, 0, 0, 0);
+              end.setHours(0, 0, 0, 0);
+
+              if (start < today) {
+                return "Start date cannot be in the past";
+              }
+
+              return true;
+            },
+          }}
+          render={({ field }) => (
+            <DateRangeSelector
+              label="Date Range without past Date"
+              value={field.value}
+              onChange={field.onChange}
+              onBlur={field.onBlur}
+              error={errors.dateRange?.message}
+            />
+          )}
+        />
+
+        <button
+          type="submit"
+          className="px-4 py-2 bg-blue-600 text-white rounded-lg"
+        >
+          Submit
+        </button>
+      </form>
     </div>
   );
 };
