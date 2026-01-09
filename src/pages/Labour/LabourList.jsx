@@ -35,7 +35,7 @@ const LabourList = () => {
         enableDelete
         //enableDownload
         //enableInvoice
-        baseURL="/user"
+        baseURL="/labour"
         onDelete={(row) => console.log(row)}
       />
     </div>
