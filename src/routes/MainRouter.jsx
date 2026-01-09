@@ -2,10 +2,12 @@ import MainLayout from "@/layout/MainLayout";
 import AccountList from "@/pages/Account/AccountList";
 import Authentication from "@/pages/Authentication";
 import Dashboard from "@/pages/Dashboard";
+import LabourForm from "@/pages/Labour/LabourForm";
 import LabourList from "@/pages/Labour/LabourList";
 import PurchaseList from "@/pages/Purchase/PurchaseList";
 import RateList from "@/pages/Rate/RateList";
 import ReportsList from "@/pages/Reports/ReportsList";
+import SiteForm from "@/pages/Site/SiteForm";
 import SiteList from "@/pages/Site/SiteList";
 import Staff from "@/pages/Staff";
 import StaffList from "@/pages/Staff/StaffList";
@@ -26,8 +28,15 @@ const MainRouter = createBrowserRouter([
       { path: "/sample/", element: <Staff /> },
       {
         path: "/staff/",
-        element: <StaffList />,
         children: [
+          {
+            path: "",
+            element: <StaffList />,
+          },
+          {
+            path: "add/",
+            element: <StaffList />,
+          },
           {
             path: "add/",
             element: <StaffList />,
@@ -42,8 +51,19 @@ const MainRouter = createBrowserRouter([
           },
         ],
       },
-      { path: "/labour/", element: <LabourList /> },
-      { path: "/site/", element: <SiteList /> },
+      {
+        path: "/labour/", children: [
+          { path: "", element: <LabourList /> },
+          { path: "add/", element: <LabourForm /> },
+        ]
+      },
+      {
+        path: "/site/", children: [
+          
+          { path: "", element: <SiteList /> },
+          { path: "add/", element: <SiteForm /> },
+        ]
+      },
       { path: "/account/", element: <AccountList /> },
       { path: "/supplier/", element: <SupplierList /> },
       { path: "/tools/", element: <ToolList /> },
