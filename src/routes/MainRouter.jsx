@@ -1,4 +1,5 @@
 import MainLayout from "@/layout/MainLayout";
+import AccountForm from "@/pages/Account/AccountForm";
 import AccountList from "@/pages/Account/AccountList";
 import Authentication from "@/pages/Authentication";
 import DailyReportsList from "@/pages/DailyReports/DailyReportsList";
@@ -64,7 +65,10 @@ const MainRouter = createBrowserRouter([
           { path: "add/", element: <SiteForm /> },
         ]
       },
-      { path: "/account/", element: <AccountList /> },
+      { path: "/account/", children: [
+        { path: "", element: <AccountList /> },
+        { path: "add/", element: <AccountForm /> },
+      ] },
       { path: "/supplier/", element: <SupplierList /> },
       { path: "/tools/", element: <ToolList /> },
       { path: "/purchase/", element: <PurchaseList /> },
