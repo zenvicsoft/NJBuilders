@@ -3,8 +3,6 @@ import AccountList from "@/pages/Account/AccountList";
 import Authentication from "@/pages/Authentication";
 import DailyReportForm from "@/pages/DailyReports/DailyReportForm";
 import DailyReportsList from "@/pages/DailyReports/DailyReportsList";
-import DailyReportForm from "@/pages/DailyReports/DailyReportForm";
-import DailyReportsList from "@/pages/DailyReports/DailyReportsList";
 import Dashboard from "@/pages/Dashboard";
 import LabourForm from "@/pages/Labour/LabourForm";
 import LabourList from "@/pages/Labour/LabourList";
