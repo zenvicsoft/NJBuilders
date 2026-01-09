@@ -3,6 +3,8 @@ import AccountList from "@/pages/Account/AccountList";
 import Authentication from "@/pages/Authentication";
 import Dashboard from "@/pages/Dashboard";
 import LabourList from "@/pages/Labour/LabourList";
+import PurchaseList from "@/pages/Purchase/PurchaseList";
+import RateList from "@/pages/Rate/RateList";
 import ReportsList from "@/pages/Reports/ReportsList";
 import SiteList from "@/pages/Site/SiteList";
 import Staff from "@/pages/Staff";
@@ -28,8 +30,9 @@ const MainRouter = createBrowserRouter([
       { path: "/account/", element: <AccountList /> },
       { path: "/supplier/", element: <SupplierList /> },
       { path: "/tools/", element: <ToolList /> },
-      // { path: "/roles/", element: <RolesList /> },
+      { path: "/purchase/", element: <PurchaseList /> },
       { path: "/report/", element: <ReportsList /> },
+      { path: "/rate/", element: <RateList /> }
     ],
   },
 ]);
