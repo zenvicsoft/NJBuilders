@@ -24,7 +24,24 @@ const MainRouter = createBrowserRouter([
     children: [
       { path: "/dashboard/", element: <Dashboard /> },
       { path: "/sample/", element: <Staff /> },
-      { path: "/staff/", element: <StaffList /> },
+      {
+        path: "/staff/",
+        element: <StaffList />,
+        children: [
+          {
+            path: "add/",
+            element: <StaffList />,
+          },
+          {
+            path: "edit/:uuid",
+            element: <StaffList />,
+          },
+          {
+            path: "view/:uuid",
+            element: <StaffList />,
+          },
+        ],
+      },
       { path: "/labour/", element: <LabourList /> },
       { path: "/site/", element: <SiteList /> },
       { path: "/account/", element: <AccountList /> },
@@ -32,7 +49,7 @@ const MainRouter = createBrowserRouter([
       { path: "/tools/", element: <ToolList /> },
       { path: "/purchase/", element: <PurchaseList /> },
       { path: "/report/", element: <ReportsList /> },
-      { path: "/rate/", element: <RateList /> }
+      { path: "/rate/", element: <RateList /> },
     ],
   },
 ]);

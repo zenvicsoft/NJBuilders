@@ -39,7 +39,7 @@ const StaffList = () => {
         enableDelete
         // enableDownload
         //  enableInvoice
-        baseURL="/user"
+        baseURL="/staff"
         onDelete={(row) => console.log(row)}
       />
     </div>
