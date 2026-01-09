@@ -11,6 +11,7 @@ import RateList from "@/pages/Rate/RateList";
 import SiteForm from "@/pages/Site/SiteForm";
 import SiteList from "@/pages/Site/SiteList";
 import Staff from "@/pages/Staff";
+import StaffForm from "@/pages/Staff/Staffform";
 import StaffList from "@/pages/Staff/StaffList";
 import SupplierList from "@/pages/Supplier/SupplierList";
 import ToolList from "@/pages/Tools/ToolList";
@@ -26,25 +27,17 @@ const MainRouter = createBrowserRouter([
     element: <MainLayout />,
     children: [
       { path: "/dashboard/", element: <Dashboard /> },
-      { path: "/sample/", element: <Staff /> },
+      { path: "/sample/", element: <Staff/> },
       {
         path: "/staff/",
         children: [
           {
-            path: "",
-            element: <StaffList />,
-          },
-          {
             path: "add/",
-            element: <StaffList />,
-          },
-          {
-            path: "add/",
-            element: <StaffList />,
+            element: <StaffForm />,
           },
           {
             path: "edit/:uuid",
-            element: <StaffList />,
+            element: <StaffList/>,
           },
           {
             path: "view/:uuid",
