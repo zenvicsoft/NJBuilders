@@ -11,20 +11,25 @@ const RateList = () => {
       <CommonTable
         title="Rate Table"
         tableHeader={[
-                {key: "id", label: "S.No"},
+          { key: "id", label: "S.No" },
           { key: "Date", label: "Date" },
           { key: "Material", label: "Material" },
           { key: "Rate", label: "Rate" },
         ]}
         tableData={[
           { id: 1, uuid: "1", Date: "21-01-2024", Material: "Steel", Rate: 50 },
-                    { id: 2, uuid: "2", Date: "09-01-2024", Material: "Concrete", Rate: 100 },
-                    ]}
+          {
+            id: 2,
+            uuid: "2",
+            Date: "09-01-2024",
+            Material: "Concrete",
+            Rate: 100,
+          },
+        ]}
         enableView
         enableEdit
         enableDelete
-       
-        baseURL="/user"
+        baseURL="/rate"
         onDelete={(row) => console.log(row)}
       />
     </div>
