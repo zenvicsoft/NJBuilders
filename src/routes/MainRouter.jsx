@@ -27,17 +27,17 @@ const MainRouter = createBrowserRouter([
     element: <MainLayout />,
     children: [
       { path: "/dashboard/", element: <Dashboard /> },
-      { path: "/sample/", element: <Staff/> },
+      { path: "/sample/", element: <Staff /> },
       {
         path: "/staff/",
         children: [
           {
             path: "add/",
-            element: <StaffForm/>,
+            element: <StaffForm />,
           },
           {
             path: "edit/:uuid",
-            element: <StaffList/>,
+            element: <StaffList />,
           },
           {
             path: "view/:uuid",
@@ -46,26 +46,30 @@ const MainRouter = createBrowserRouter([
         ],
       },
       {
-        path: "/labour/", children: [
+        path: "/labour/",
+        children: [
           { path: "", element: <LabourList /> },
           { path: "add/", element: <LabourForm /> },
-        ]
+        ],
       },
       {
-        path: "/site/", children: [
-          
+        path: "/site/",
+        children: [
           { path: "", element: <SiteList /> },
           { path: "add/", element: <SiteForm /> },
-        ]
+        ],
       },
       { path: "/account/", element: <AccountList /> },
       { path: "/supplier/", element: <SupplierList /> },
       { path: "/tools/", element: <ToolList /> },
       { path: "/purchase/", element: <PurchaseList /> },
-      { path: "/report/", children:[
-        {path:"", element:<DailyReportsList/>},
-        {path:"add/", element:<DailyReportForm/>},
-      ]},
+      {
+        path: "/report/",
+        children: [
+          { path: "", element: <DailyReportsList /> },
+          { path: "add/", element: <DailyReportForm /> },
+        ],
+      },
       { path: "/rate/", element: <RateList /> },
     ],
   },
