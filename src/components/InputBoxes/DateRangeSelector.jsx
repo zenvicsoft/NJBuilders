@@ -1,68 +1,80 @@
 import React from "react";
+import { Controller } from "react-hook-form";
 import { DateRangePicker } from "rsuite";
 
 const DateRangeSelector = ({
   label,
-  value, // { startDate, endDate }
-  onChange,
-  onBlur,
-  error,
+  name,
+  control,
   placeholder = "Select date range",
   disabledPast = true,
+  rules = {},
 }) => {
-  const convertToDate = (str) => (str ? new Date(str) : null);
-
-  const pickerValue =
-    value?.startDate && value?.endDate
-      ? [convertToDate(value.startDate), convertToDate(value.endDate)]
-      : null;
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
 
   const formatDate = (date) => {
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, "0");
-    const day = String(date.getDate()).padStart(2, "0");
-    return `${year}-${month}-${day}`;
-  };
-
-  const handleDateChange = (range) => {
-    if (!range) {
-      onChange({ startDate: "", endDate: "" });
-      return;
-    }
-
-    const [start, end] = range;
-
-    onChange({
-      startDate: formatDate(start),
-      endDate: formatDate(end),
-    });
+    if (!date) return "";
+    const y = date.getFullYear();
+    const m = String(date.getMonth() + 1).padStart(2, "0");
+    const d = String(date.getDate()).padStart(2, "0");
+    return `${y}-${m}-${d}`;
   };
 
   return (
-    <div>
+    <div className="flex flex-col gap-1">
       {label && (
-        <label className="block mb-1 text-sm font-medium text-gray-700">
-          {label}
-        </label>
+        <label className="text-sm font-medium text-gray-700">{label}</label>
       )}
 
-      <DateRangePicker
-        style={{ width: "200px" }}
-        showOneCalendar
-        size="lg"
-        format="dd-MM-yyyy"
-        placeholder={placeholder}
-        value={pickerValue}
-        onChange={handleDateChange}
-        onBlur={onBlur}
-        shouldDisableDate={
-          disabledPast
-            ? (date) => date < new Date().setHours(0, 0, 0, 0)
-            : undefined
-        }
-      />
+      <Controller
+        name={name}
+        control={control}
+        rules={rules}
+        render={({ field, fieldState: { error } }) => {
+          const pickerValue =
+            field.value?.startDate && field.value?.endDate
+              ? [new Date(field.value.startDate), new Date(field.value.endDate)]
+              : null;
 
-      {error && <p className="mt-1 text-xs text-red-500">{error}</p>}
+          return (
+            <>
+              <DateRangePicker
+                {...field}
+                value={pickerValue}
+                showOneCalendar
+                size="lg"
+                format="dd-MM-yyyy"
+                placeholder={placeholder}
+                style={{ width: 260 }}
+                shouldDisableDate={
+                  disabledPast ? (date) => date < today : undefined
+                }
+                onChange={(range) => {
+                  if (!range) {
+                    field.onChange({
+                      startDate: "",
+                      endDate: "",
+                    });
+                    return;
+                  }
+
+                  const [start, end] = range;
+
+                  field.onChange({
+                    startDate: formatDate(start),
+                    endDate: formatDate(end),
+                  });
+                }}
+              />
+
+              {error && (
+                <p className="text-xs text-red-500 mt-1">{error.message}</p>
+              )}
+            </>
+          );
+        }}
+      />
     </div>
   );
 };

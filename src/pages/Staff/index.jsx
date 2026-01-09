@@ -10,12 +10,12 @@ import MultiSelect from "@/components/InputBoxes/MultiSelect";
 import { Controller, useForm } from "react-hook-form";
 import DateRangeSelector from "@/components/InputBoxes/DateRangeSelector";
 import TextFieldBox from "@/components/InputBoxes/TextFieldBox";
+import DateSelector from "@/components/InputBoxes/DateSelector";
 
-const Staff = ({data="admin"}) => {
+const Staff = ({ data = "admin" }) => {
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
   const [openSaveModal, setOpenSaveModal] = useState(false);
   const [openFormModal, setOpenFormModal] = useState(false);
-
 
   const {
     control,
@@ -24,17 +24,23 @@ const Staff = ({data="admin"}) => {
     reset,
   } = useForm({
     defaultValues: {
-      role: data,
+      role: "",
       skills: [],
-      dateRange: {
+      bookingDate: {
         startDate: "",
         endDate: "",
       },
+      joinedDate: {
+        startDate: "",
+        endDate: "",
+      },
+      reportDate: "",
     },
   });
 
   const onSubmit = (data) => {
     console.log(data);
+    reset();
   };
 
   const options = [
@@ -128,55 +134,44 @@ const Staff = ({data="admin"}) => {
         />
 
         <div className="flex gap-3">
-          <Controller
+          <SingleSelect
             name="role"
+            label="Role"
             control={control}
-            rules={{ required: "Role is required" }}
-            render={({ field }) => (
-              <SingleSelect
-                label="Role"
-                options={options}
-                value={field.value}
-                onChange={field.onChange}
-                onBlur={field.onBlur}
-                error={errors.role?.message}
-              />
-            )}
+            options={[
+              { label: "Admin", value: "admin" },
+              { label: "User", value: "user" },
+            ]}
+            rules={{
+              required: "Role is required",
+            }}
           />
 
-          <Controller
+          <MultiSelect
             name="skills"
+            label="Skills"
             control={control}
+            options={skillOptions}
             rules={{
               validate: (v) => v.length > 0 || "Select at least one skill",
             }}
-            render={({ field }) => (
-              <MultiSelect
-                label="Skills"
-                options={skillOptions}
-                values={field.value}
-                onChange={field.onChange}
-                onBlur={field.onBlur}
-                error={errors.skills?.message}
-              />
-            )}
           />
         </div>
-        {/* Date Rage Selector with past date */}
-        <Controller
-          name="dateRange"
+
+        {/* Date Rage Selector with past date and with rules */}
+        <DateRangeSelector
+          name="joinedDate"
+          label="Joined Date"
           control={control}
+          disabledPast={false}
           rules={{
-            validate: (v) => {
-              if (!v.startDate || !v.endDate) {
+            validate: (value) => {
+              if (!value?.startDate || !value?.endDate) {
                 return "Date range is required";
               }
 
-              const today = new Date();
-              today.setHours(0, 0, 0, 0);
-
-              const start = new Date(v.startDate);
-              const end = new Date(v.endDate);
+              const start = new Date(value.startDate);
+              const end = new Date(value.endDate);
 
               start.setHours(0, 0, 0, 0);
               end.setHours(0, 0, 0, 0);
@@ -185,56 +180,23 @@ const Staff = ({data="admin"}) => {
                 return "Start date cannot be in the past";
               }
 
+              if (end < start) {
+                return "End date must be after start date";
+              }
+
               return true;
             },
           }}
-          render={({ field }) => (
-            <DateRangeSelector
-              label="Date Range With Past dates"
-              value={field.value}
-              onChange={field.onChange}
-              onBlur={field.onBlur}
-              error={errors.dateRange?.message}
-              disabledPast={false}
-            />
-          )}
         />
+
         {/* Date Rage Selector without past date */}
-        <Controller
-          name="dateRange"
+        <DateRangeSelector
+          name="bookingDate"
+          label="Booking Date"
           control={control}
-          rules={{
-            validate: (v) => {
-              if (!v.startDate || !v.endDate) {
-                return "Date range is required";
-              }
-
-              const today = new Date();
-              today.setHours(0, 0, 0, 0);
-
-              const start = new Date(v.startDate);
-              const end = new Date(v.endDate);
-
-              start.setHours(0, 0, 0, 0);
-              end.setHours(0, 0, 0, 0);
-
-              if (start < today) {
-                return "Start date cannot be in the past";
-              }
-
-              return true;
-            },
-          }}
-          render={({ field }) => (
-            <DateRangeSelector
-              label="Date Range without past Date"
-              value={field.value}
-              onChange={field.onChange}
-              onBlur={field.onBlur}
-              error={errors.dateRange?.message}
-            />
-          )}
         />
+
+        <DateSelector name="reportDate" label="Report Date" control={control} />
 
         <button
           type="submit"
