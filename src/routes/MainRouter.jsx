@@ -1,11 +1,11 @@
 import MainLayout from "@/layout/MainLayout";
 import AccountList from "@/pages/Account/AccountList";
 import Authentication from "@/pages/Authentication";
+import DailyReportsList from "@/pages/DailyReports/DailyReportsList";
 import Dashboard from "@/pages/Dashboard";
 import LabourList from "@/pages/Labour/LabourList";
 import PurchaseList from "@/pages/Purchase/PurchaseList";
 import RateList from "@/pages/Rate/RateList";
-import ReportsList from "@/pages/Reports/ReportsList";
 import SiteList from "@/pages/Site/SiteList";
 import Staff from "@/pages/Staff";
 import StaffList from "@/pages/Staff/StaffList";
@@ -48,7 +48,7 @@ const MainRouter = createBrowserRouter([
       { path: "/supplier/", element: <SupplierList /> },
       { path: "/tools/", element: <ToolList /> },
       { path: "/purchase/", element: <PurchaseList /> },
-      { path: "/report/", element: <ReportsList /> },
+      { path: "/report/", element: <DailyReportsList /> },
       { path: "/rate/", element: <RateList /> },
     ],
   },
