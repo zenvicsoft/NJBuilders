@@ -14,7 +14,7 @@ import RateList from "@/pages/Rate/RateList";
 import SiteForm from "@/pages/Site/SiteForm";
 import SiteList from "@/pages/Site/SiteList";
 import Staff from "@/pages/Staff";
-import StaffForm from "@/pages/Staff/Staffform";
+import StaffForm from "@/pages/Staff/StaffForm";
 import StaffList from "@/pages/Staff/StaffList";
 import SupplierForm from "@/pages/Supplier/SupplierForm";
 import SupplierList from "@/pages/Supplier/SupplierList";
