@@ -1,9 +1,9 @@
 import React from 'react'
 
-const ReportsList = () => {
+const DailyReportsList = () => {
   return (
     <div>ReportsList</div>
   )
 }
 
-export default ReportsList
+export default DailyReportsList
