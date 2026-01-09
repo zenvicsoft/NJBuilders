@@ -29,7 +29,7 @@ const SiteList = () => {
         enableDelete
        // enableDownload
        // enableInvoice
-        baseURL="/user"
+        baseURL="/site"
         onDelete={(row) => console.log(row)}
       />
     </div>

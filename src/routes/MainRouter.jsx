@@ -1,13 +1,17 @@
 import MainLayout from "@/layout/MainLayout";
 import AccountList from "@/pages/Account/AccountList";
 import Authentication from "@/pages/Authentication";
+import DailyReportForm from "@/pages/DailyReports/DailyReportForm";
+import DailyReportsList from "@/pages/DailyReports/DailyReportsList";
 import Dashboard from "@/pages/Dashboard";
+import LabourForm from "@/pages/Labour/LabourForm";
 import LabourList from "@/pages/Labour/LabourList";
 import PurchaseList from "@/pages/Purchase/PurchaseList";
 import RateList from "@/pages/Rate/RateList";
-import ReportsList from "@/pages/Reports/ReportsList";
+import SiteForm from "@/pages/Site/SiteForm";
 import SiteList from "@/pages/Site/SiteList";
 import Staff from "@/pages/Staff";
+import StaffForm from "@/pages/Staff/Staffform";
 import StaffList from "@/pages/Staff/StaffList";
 import SupplierList from "@/pages/Supplier/SupplierList";
 import ToolList from "@/pages/Tools/ToolList";
@@ -23,18 +27,17 @@ const MainRouter = createBrowserRouter([
     element: <MainLayout />,
     children: [
       { path: "/dashboard/", element: <Dashboard /> },
-      { path: "/sample/", element: <Staff /> },
+      { path: "/sample/", element: <Staff/> },
       {
         path: "/staff/",
-        element: <StaffList />,
         children: [
           {
             path: "add/",
-            element: <StaffList />,
+            element: <StaffForm/>,
           },
           {
             path: "edit/:uuid",
-            element: <StaffList />,
+            element: <StaffList/>,
           },
           {
             path: "view/:uuid",
@@ -42,13 +45,27 @@ const MainRouter = createBrowserRouter([
           },
         ],
       },
-      { path: "/labour/", element: <LabourList /> },
-      { path: "/site/", element: <SiteList /> },
+      {
+        path: "/labour/", children: [
+          { path: "", element: <LabourList /> },
+          { path: "add/", element: <LabourForm /> },
+        ]
+      },
+      {
+        path: "/site/", children: [
+          
+          { path: "", element: <SiteList /> },
+          { path: "add/", element: <SiteForm /> },
+        ]
+      },
       { path: "/account/", element: <AccountList /> },
       { path: "/supplier/", element: <SupplierList /> },
       { path: "/tools/", element: <ToolList /> },
       { path: "/purchase/", element: <PurchaseList /> },
-      { path: "/report/", element: <ReportsList /> },
+      { path: "/report/", children:[
+        {path:"", element:<DailyReportsList/>},
+        {path:"add/", element:<DailyReportForm/>},
+      ]},
       { path: "/rate/", element: <RateList /> },
     ],
   },
