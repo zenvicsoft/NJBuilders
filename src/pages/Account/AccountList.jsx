@@ -45,7 +45,7 @@ const AccountList = () => {
         enableDelete
         //enableDownload
         //enableInvoice
-        baseURL="/user"
+        baseURL="/account"
         onDelete={(row) => console.log(row)}
       />
     </div>
