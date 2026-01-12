@@ -2,6 +2,7 @@ import React from "react";
 import { useForm, Controller } from "react-hook-form";
 import DateSelector from "@/components/InputBoxes/DateSelector";
 import TextInput from "@/components/InputBoxes/TextInput";
+import SingleSelect from "@/components/InputBoxes/SingleSelect";
 const PurchaseForm = () => {
   const {
     register,
@@ -54,57 +55,34 @@ const PurchaseForm = () => {
             />
 
             {/* Material */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Material
-              </label>
-              <Controller
-                name="material"
-                control={control}
-                rules={{ required: "Material is required" }}
-                render={({ field }) => (
-                  <select
-                    {...field}
-                    className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none"
-                  >
-                    <option value="">Select material</option>
-                    {materialOptions.map((mat) => (
-                      <option key={mat} value={mat}>
-                        {mat}
-                      </option>
-                    ))}
-                  </select>
-                )}
-              />
-              {errors.material && (
-                <p className="text-xs text-red-500 mt-1">
-                  {errors.material.message}
-                </p>
-              )}
-            </div>
+            <SingleSelect
+              name="material"
+              label="Material"
+              control={control}
+              options={[
+                { label: "A", value: "A" },
+                { label: "B", value: "B" },
+              ]}
+              rules={{
+                required: "Material is required",
+              }}
+            />
 
             {/* Amount */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Amount
-              </label>
-              <input
-                type="number"
-                min="0"
-                step="1"
-                {...register("amount", {
-                  required: "Amount is required",
-                  min: { value: 0, message: "Amount cannot be less than 0" },
-                })}
-                className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none"
-                placeholder="Enter amount"
-              />
-              {errors.amount && (
-                <p className="text-xs text-red-500 mt-1">
-                  {errors.amount.message}
-                </p>
-              )}
-            </div>
+            <TextInput
+              name="amount"
+              label="Amount"
+              register={register}
+              rules={{
+                required: "Amount is required",
+                min: { value: 0, message: "Amount must be a positive number" },
+              }}
+              error={errors.amount}
+              placeholder="Enter amount"
+              type="number"
+              min={0}
+              step="1"
+            />
           </div>
 
           {/* Submit Button */}

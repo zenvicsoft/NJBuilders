@@ -1,7 +1,8 @@
 import React from "react";
 import { useForm, Controller } from "react-hook-form";
 import DateSelector from "@/components/InputBoxes/DateSelector";
-
+import SingleSelect from "@/components/InputBoxes/SingleSelect";
+import TextInput from "@/components/InputBoxes/TextInput";
 const SupplierForm = () => {
   const {
     register,
@@ -47,114 +48,77 @@ const SupplierForm = () => {
             />
 
             {/* Bill */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Bill
-              </label>
-              <input
-                {...register("bill", { required: "Bill is required" })}
-                className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none"
-                placeholder="Enter bill number"
-              />
-              {errors.bill && (
-                <p className="text-xs text-red-500 mt-1">
-                  {errors.bill.message}
-                </p>
-              )}
-            </div>
+            <TextInput
+              name="bill"
+              label="Bill"
+              register={register}
+              rules={{
+                required: "Bill is required",
+                min: { value: 0, message: "Bill must be a positive number" },
+              }}
+              error={errors.bill}
+              placeholder="Enter bill number"
+              type="number"
+              min={0}
+              step="1"
+            />
 
             {/* Site */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Site
-              </label>
-              <Controller
-                name="site"
-                control={control}
-                rules={{ required: "Site is required" }}
-                render={({ field }) => (
-                  <select
-                    {...field}
-                    className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none"
-                  >
-                    <option value="">Select site</option>
-                    {siteOptions.map((site) => (
-                      <option key={site} value={site}>
-                        {site}
-                      </option>
-                    ))}
-                  </select>
-                )}
-              />
-              {errors.site && (
-                <p className="text-xs text-red-500 mt-1">
-                  {errors.site.message}
-                </p>
-              )}
-            </div>
+            <SingleSelect
+              name="site"
+              label="Site"
+              control={control}
+              options={[
+                { label: "A", value: "A" },
+                { label: "B", value: "B" },
+              ]}
+              rules={{
+                required: "Status is required",
+              }}
+            />
 
             {/* Material */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Material
-              </label>
-              <Controller
-                name="material"
-                control={control}
-                rules={{ required: "Material is required" }}
-                render={({ field }) => (
-                  <select
-                    {...field}
-                    className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none"
-                  >
-                    <option value="">Select material</option>
-                    {materialOptions.map((mat) => (
-                      <option key={mat} value={mat}>
-                        {mat}
-                      </option>
-                    ))}
-                  </select>
-                )}
-              />
-              {errors.material && (
-                <p className="text-xs text-red-500 mt-1">
-                  {errors.material.message}
-                </p>
-              )}
-            </div>
+            <SingleSelect
+              name="material"
+              label="Material"
+              control={control}
+              options={[
+                { label: "Cement", value: "cement" },
+                { label: "Sand", value: "sand" },
+              ]}
+              rules={{
+                required: "Material is required",
+              }}
+            />
 
             {/* Quantity */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Quantity
-              </label>
-              <input
-                type="number"
-                min="0"
-                step="1"
-                {...register("quantity", {
-                  required: "Quantity is required",
-                  min: { value: 0, message: "Quantity cannot be less than 0" },
-                })}
-                className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none"
-                placeholder="Enter quantity"
-              />
-              {errors.quantity && (
-                <p className="text-xs text-red-500 mt-1">
-                  {errors.quantity.message}
-                </p>
-              )}
-            </div>
+            <TextInput
+              name="quantity"
+              label="Quantity"
+              register={register}
+              rules={{
+                required: "Quantity is required",
+                min: {
+                  value: 0,
+                  message: "Quantity must be a positive number",
+                },
+              }}
+              error={errors.quantity}
+              placeholder="Enter quantity"
+              type="number"
+              min={0}
+              step="1"
+            />
           </div>
 
           {/* Submit Button */}
           <div className="mt-6 flex justify-end">
             <button
-            type="submit"
-            className="px-4 py-2 bg-blue-600 text-white rounded-lg"
-          >
-            Submit
-          </button>
+              type="submit"
+              className="px-4 py-2 bg-blue-600 text-white rounded-lg"
+            >
+              Submit
+            </button>
           </div>
         </form>
       </div>

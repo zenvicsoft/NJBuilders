@@ -1,6 +1,7 @@
 import React from "react";
 import { useForm, Controller } from "react-hook-form";
-
+import TextInput from "@/components/InputBoxes/TextInput";
+import SingleSelect from "@/components/InputBoxes/SingleSelect";
 const StaffForm = () => {
   const {
     register,
@@ -29,140 +30,94 @@ const StaffForm = () => {
       <div className="mx-auto w-full max-w-6xl rounded-xl bg-white p-6 shadow-md">
         {/* Header */}
         <div className="mb-4">
-          <h2 className="text-lg font-bold text-gray-800">
-            Add Staff
-          </h2>
+          <h2 className="text-lg font-bold text-gray-800">Add Staff</h2>
         </div>
 
         {/* Form */}
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="grid grid-cols-1 gap-4 max-h-64 md:grid-cols-2 lg:grid-cols-3">
-            {/* Staff Name */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Staff Name
-              </label>
-              <input
-                {...register("staffName", {
-                  required: "Staff Name is required",
-                })}
-                className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none"
-                placeholder="Enter staff name"
-              />
-              {errors.staffName && (
-                <p className="text-xs text-red-500 mt-1">
-                  {errors.staffName.message}
-                </p>
-              )}
-            </div>
+            <TextInput
+              name="staffName"
+              label="Staffname"
+              register={register}
+              rules={{ required: "Staffname is required" }}
+              error={errors.staffName}
+              placeholder="Enter Staff Name"
+            />
 
             {/* User Name */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                User Name
-              </label>
-              <input
-                {...register("userName", {
-                  required: "User Name is required",
-                })}
-                className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none"
-                placeholder="Enter user name"
-              />
-              {errors.userName && (
-                <p className="text-xs text-red-500 mt-1">
-                  {errors.userName.message}
-                </p>
-              )}
-            </div>
+            <TextInput
+              name="userName"
+              label="Username"
+              register={register}
+              rules={{ required: "Username is required" }}
+              error={errors.userName}
+              placeholder="Enter username"
+            />
 
             {/* Password */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Password
-              </label>
-              <input
-                type="password"
-                {...register("password", {
-                  required: "Password is required",
-                })}
-                className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none"
-                placeholder="Enter password"
-              />
-              {errors.password && (
-                <p className="text-xs text-red-500 mt-1">
-                  {errors.password.message}
-                </p>
-              )}
-            </div>
+            <TextInput
+              name="password"
+              label="Password"
+              type="password"
+              register={register}
+              rules={{ required: "Password is required" }}
+              error={errors.password}
+              placeholder="Enter password"
+            />
 
             {/* Phone Number */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Phone Number
-              </label>
-              <input
-                {...register("phoneNumber", {
-                  required: "Phone number is required",
-                  pattern: {
-                    value: /^[0-9]{10}$/,
-                    message: "Enter valid 10 digit number",
-                  },
-                })}
-                className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none"
-                placeholder="Enter phone number"
-              />
-              {errors.phoneNumber && (
-                <p className="text-xs text-red-500 mt-1">
-                  {errors.phoneNumber.message}
-                </p>
-              )}
-            </div>
+            <TextInput
+              name="phone"
+              label="Phone Number"
+              type="number"
+              register={register}
+              rules={{
+                required: "Phone number is required",
+                pattern: {
+                  value: /^[6-9]\d{9}$/,
+                  message: "Enter a valid 10-digit phone number",
+                },
+              }}
+              error={errors.phone}
+              placeholder="Enter phone number"
+              max={10}
+              onInput={(e) => {
+                e.target.value = e.target.value
+                  .replace(/[^0-9]/g, "")
+                  .slice(0, 10);
+              }}
+            />
 
             {/* Balance */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Balance
-              </label>
-              <input
-                {...register("balance", {
-                  required: "Balance is required",
-                })}
-                className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none"
-                placeholder="Enter balance"
-              />
-              {errors.balance && (
-                <p className="text-xs text-red-500 mt-1">
-                  {errors.balance.message}
-                </p>
-              )}
-            </div>
+            <TextInput
+              name="balance"
+              label="Balance"
+              register={register}
+              rules={{
+                required: "Balance is required",
+                min: { value: 0, message: "Balance must be a positive number" },
+              }}
+              error={errors.balance}
+              placeholder="Enter balance"
+              type="number"
+              min={0}
+              step="1"
+            />
 
             {/* Status */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Status
-              </label>
-              <Controller
-                name="status"
-                control={control}
-                rules={{ required: "Status is required" }}
-                render={({ field }) => (
-                  <select
-                    {...field}
-                    className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none"
-                  >
-                    <option value="">Select status</option>
-                    <option value="active">Active</option>
-                    <option value="inactive">Inactive</option>
-                  </select>
-                )}
-              />
-              {errors.status && (
-                <p className="text-xs text-red-500 mt-1">
-                  {errors.status.message}
-                </p>
-              )}
-            </div>
+            <SingleSelect
+              name="status"
+              label="Status"
+              control={control}
+              options={[
+                { label: "Active", value: "active" },
+                { label: "Inactive", value: "inactive" },
+              ]}
+              rules={{
+                required: "Status is required",
+              }}
+            />
           </div>
 
           {/* Submit Button */}
