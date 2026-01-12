@@ -36,7 +36,7 @@ const LabourForm = () => {
       <form onSubmit={handleSubmit(onSubmit)}>
         {/* FORM GRID */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          
+
           {/* Name */}
           <TextInput
             name="name"
@@ -51,7 +51,7 @@ const LabourForm = () => {
           <TextInput
             name="phone"
             label="Phone Number"
-            type="tel"
+            type="number"
             register={register}
             rules={{
               required: "Phone number is required",
@@ -62,7 +62,12 @@ const LabourForm = () => {
             }}
             error={errors.phone}
             placeholder="Enter phone number"
+            max={10}
+            onInput={(e) => {
+              e.target.value = e.target.value.replace(/[^0-9]/g, "").slice(0, 10);
+            }}
           />
+
 
           {/* Status */}
           <SingleSelect
