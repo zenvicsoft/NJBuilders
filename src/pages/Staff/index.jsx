@@ -11,6 +11,7 @@ import { Controller, useForm } from "react-hook-form";
 import DateRangeSelector from "@/components/InputBoxes/DateRangeSelector";
 import TextFieldBox from "@/components/InputBoxes/TextFieldBox";
 import DateSelector from "@/components/InputBoxes/DateSelector";
+import RadioButton from "@/components/InputBoxes/RadioButton";
 
 const Staff = ({ data = "admin" }) => {
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
@@ -127,7 +128,7 @@ const Staff = ({ data = "admin" }) => {
             error={errors.username}
             placeholder="Enter username"
           />
-          
+
           <TextInput
             name="amount"
             label="Amount"
@@ -232,6 +233,18 @@ const Staff = ({ data = "admin" }) => {
             name="reportDate"
             label="Report Date"
             control={control}
+          />
+
+          <RadioButton
+            label="Gender"
+            options={[
+              { label: "Male", value: "male" },
+              { label: "Female", value: "female" },
+            ]}
+            registerProps={register("gender", {
+              required: "Please select a gender",
+            })}
+            error={errors.gender}
           />
 
           <button
