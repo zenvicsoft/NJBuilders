@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import TextInput from "@/components/InputBoxes/TextInput";
 import SingleSelect from "@/components/InputBoxes/SingleSelect";
 import DateSelector from "@/components/InputBoxes/DateSelector";
+import TextFieldBox from "@/components/InputBoxes/TextFieldBox";
 
 const todayDate = new Date().toISOString().split("T")[0];
 
@@ -13,6 +14,7 @@ const AccountForm = () => {
         handleSubmit,
         formState: { errors },
         reset,
+        setValue,
     } = useForm({
         defaultValues: {
             date: todayDate,
@@ -40,17 +42,27 @@ const AccountForm = () => {
         });
     };
 
-    /** BLOCK minus, e, + keys */
-    const blockInvalidChar = (e) => {
-        if (["-", "e", "E", "+"].includes(e.key)) {
+    /** 🚫 UNIVERSAL NEGATIVE BLOCKER */
+    const blockNegativeInput = (e, field) => {
+        // Block -, +, e, E while typing
+        if (e.type === "keydown" && ["-", "+", "e", "E"].includes(e.key)) {
             e.preventDefault();
+            return;
         }
-    };
 
-    /** Ensure value never goes below 0 (paste / scroll safe) */
-    const preventNegative = (e) => {
-        if (e.target.value < 0) {
-            e.target.value = 0;
+        // Block paste of negative values
+        if (e.type === "paste") {
+            const pastedText = e.clipboardData.getData("text");
+            if (pastedText.includes("-")) {
+                e.preventDefault();
+                return;
+            }
+        }
+
+        // Final safety: force value >= 0
+        const value = Number(e.target.value);
+        if (value < 0) {
+            setValue(field, 0);
         }
     };
 
@@ -99,70 +111,60 @@ const AccountForm = () => {
 
                     {/* AMOUNT */}
                     <TextInput
-                        name="amount"
-                        label="Amount"
+                        name="received"
+                        label="Received"
                         type="number"
                         register={register}
-                        rules={{ min: 0 }}
-                        error={errors.amount}
-                        onKeyDown={blockInvalidChar}
-                        onInput={preventNegative}
+                        rules={{
+                            required: "Received amount is required",
+                            min: { value: 0, message: "Negative value not allowed" },
+                        }}
+                        error={errors.received}
+                        placeholder="Enter received amount"
+                        min={0}
+                        step="1"
                     />
-<TextInput
-    name="received"
-    label="Received"
-    type="number"
-    register={register}
-    rules={{ min: 0 }}
-    error={errors.received}
-    onKeyDown={blockInvalidChar}
-    onInput={preventNegative}
-/>
 
-<TextInput
-    name="balance"
-    label="Balance"
-    type="number"
-    register={register}
-    rules={{ min: 0 }}
-    error={errors.balance}
-    onKeyDown={blockInvalidChar}
-    onInput={preventNegative}
-/>
+                    <TextInput
+                        name="balance"
+                        label="Balance"
+                        type="number"
+                        register={register}
+                        rules={{
+                            required: "Balance is required",
+                            min: { value: 0, message: "Negative value not allowed" },
+                        }}
+                        error={errors.balance}
+                        placeholder="Enter balance"
+                        min={0}
+                        step="1"
+                    />
 
-<TextInput
-    name="payment"
-    label="Payment"
-    type="number"
-    register={register}
-    rules={{ min: 0 }}
-    error={errors.payment}
-    onKeyDown={blockInvalidChar}
-    onInput={preventNegative}
-/>
+                    <TextInput
+                        name="payment"
+                        label="Payment"
+                        type="number"
+                        register={register}
+                        rules={{
+                            required: "Payment amount is required",
+                            min: { value: 0, message: "Negative value not allowed" },
+                        }}
+                        error={errors.payment}
+                        placeholder="Enter payment amount"
+                        min={0}
+                        step="1"
+                    />
                 </div>
 
                 {/* DESCRIPTION */}
-                <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
-                        Description
-                    </label>
-                    <textarea
-                        {...register("description", {
-                            required: "Description is required",
-                        })}
-                        rows={4}
-                        placeholder="Enter description"
-                        className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm
-                        focus:outline-none focus:ring-2 focus:ring-blue-500
-                        focus:border-blue-500 resize-none"
-                    />
-                    {errors.description && (
-                        <p className="text-xs text-red-500 mt-1">
-                            {errors.description.message}
-                        </p>
-                    )}
-                </div>
+                <TextFieldBox
+                    name="description"
+                    label="Description"
+                    register={register}
+                    rules={{ required: "Description is required" }}
+                    error={errors.description}
+                    placeholder="Enter description"
+                />
 
                 {/* ACTION BUTTONS */}
                 <div className="flex justify-end gap-4">
