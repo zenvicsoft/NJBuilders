@@ -127,6 +127,21 @@ const Staff = ({ data = "admin" }) => {
             error={errors.username}
             placeholder="Enter username"
           />
+          
+          <TextInput
+            name="amount"
+            label="Amount"
+            register={register}
+            rules={{
+              required: "Amount is required",
+              min: { value: 0, message: "Amount must be a positive number" },
+            }}
+            error={errors.amount}
+            placeholder="Enter amount"
+            type="number"
+            min={0}
+            step="1"
+          />
 
           <TextFieldBox
             name="description"

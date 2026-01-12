@@ -7,6 +7,10 @@ const TextInput = ({
   rules = {},
   error,
   placeholder = "",
+  type = "text",
+  min,
+  max,
+  step,
 }) => {
   return (
     <div className="mb-4">
@@ -15,7 +19,10 @@ const TextInput = ({
       </label>
 
       <input
-        type="text"
+        type={type}
+        min={min}
+        max={max}
+        step={step}
         {...register(name, rules)}
         placeholder={placeholder}
         className={`w-full p-3 border rounded-lg focus:outline-none hover:ring-2 focus:ring-2 ${
