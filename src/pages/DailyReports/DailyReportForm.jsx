@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 
 import DateSelector from "@/components/InputBoxes/DateSelector";
@@ -6,7 +6,10 @@ import SingleSelect from "@/components/InputBoxes/SingleSelect";
 import MultiSelect from "@/components/InputBoxes/MultiSelect";
 import TextFieldBox from "@/components/InputBoxes/TextFieldBox";
 import RadioButton from "@/components/InputBoxes/RadioButton";
+import ToolAddModal from "./ToolAddModal";
 const DailyReportForm = () => {
+  const [openToolAddModal, setOpenToolAddModal] = useState(false);
+
   const {
     control,
     register,
@@ -174,15 +177,27 @@ const DailyReportForm = () => {
           />
 
           {/* Tools */}
-          <MultiSelect
-            name="tools"
-            label="Tools"
-            control={control}
-            options={[
-              { label: "Hammer", value: "hammer" },
-              { label: "Drill", value: "drill" },
-            ]}
-          />
+          <div className="relative flex gap-2">
+            <MultiSelect
+              name="tools"
+              label="Tools"
+              control={control}
+              options={[
+                { label: "Hammer", value: "hammer" },
+                { label: "Drill", value: "drill" },
+              ]}
+            />
+            <div className="absolute top-7 right-1">
+              <button
+                type="button"
+                onClick={() => setOpenToolAddModal(true)}
+                className="flex items-center gap-2 rounded-md border px-3 py-2 bg-bg-secondary text-text-primary 
+                       text-sm hover:bg-bg-primary hover:text-white transition"
+              >
+                <i className="fa-solid fa-plus text-xs" />
+              </button>
+            </div>
+          </div>
 
           {/* Remark */}
           <TextFieldBox
@@ -206,6 +221,14 @@ const DailyReportForm = () => {
           </button>
         </div>
       </form>
+      <ToolAddModal
+        isOpen={openToolAddModal}
+        onClose={() => setOpenToolAddModal(false)}
+        title="Add Tools"
+        onSubmit={(data) => {
+          console.log("Submitted:", data);
+        }}
+      />
     </div>
   );
 };

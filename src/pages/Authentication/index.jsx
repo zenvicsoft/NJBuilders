@@ -43,12 +43,12 @@ export default function Authentication() {
 
   const onLoginSubmit = (data) => {
     console.log("Login Data:", data);
-    navigate("/dashboard");
+    navigate("/dashboard/");
   };
 
   const onRegisterSubmit = (data) => {
     console.log("Register Data:", data);
-    navigate("/dashboard");
+    navigate("/dashboard/");
   };
 
   return (
