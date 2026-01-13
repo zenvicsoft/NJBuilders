@@ -44,6 +44,7 @@ const ToolAddModal = ({ isOpen, onClose, title, onSubmit }) => {
             <p className="text-xs text-red-600 mt-1">{errors.name.message}</p>
           )} */}
           <TextInput
+            type="text"
             name="toolName"
             label="Tool Name"
             register={register}
